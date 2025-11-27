@@ -28,13 +28,13 @@ function fn_svm_decode_libsvm_chan(param)
 % 4) param           : input parameters   
 
 % NOTES
-% - Uses fieldtrip toolbox to perform few functions before deocoding
+% - Uses fieldtrip toolbox to perform few functions before decoding
 % - Uses LIBSVM library for decoding
 % - All outputs are saved in the derivatives folder, in the corresponding
 %   analysis folder and sub-folder for each subject
 % - The function uses parallel toolbox. Make sure there are enough workers.
 % - Pseudotrials are created using an inbuilt function.
-% - leave one trial out cross validation implemented.
+% - Leave one trial out cross validation implemented.
 
 %% Paths (change)
 
