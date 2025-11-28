@@ -4,12 +4,12 @@
 %% Run this code after having fit the DNN models
 %% with analyze_04[a,b,c]*.py code
 clear
-rootmain='/mnt/DATA/siddharth/myenv/workspace/';
+rootmain='xxx/myenv/workspace/';
 
 clc
 restoredefaultpath
 addpath(genpath([rootmain,'code/']))
-addpath(genpath('/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'))
+addpath(genpath('xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'))
 
 
 % dataset='giordano';
@@ -23,8 +23,8 @@ for whichmodel=3
     model_name={'kell' 'vggish' 'yamnet'}';
     model_name_nicer={'Kell' 'VGGish' 'Yamnet'};
     % out_dist_dir=[datdir,dataset,'_dnns/'];
-    dnn_dir= '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/data/';
-    main_out_fn='/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/models/';
+    dnn_dir= 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/data/';
+    main_out_fn='xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/models/';
     
     %dnn_dir=dnn_dirs{whichmodel};
     d=dir([dnn_dir,'*.hdf5']);
@@ -220,7 +220,7 @@ for whichmodel=3
     
     
 end
-save('/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/models/dsm_dsm.mat',dsm);
+save('xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/others/dnn/models/dsm_dsm.mat',dsm);
 
 %%
 
