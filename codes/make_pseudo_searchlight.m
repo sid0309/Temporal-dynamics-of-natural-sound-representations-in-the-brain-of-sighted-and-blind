@@ -1,5 +1,7 @@
 function [pseudo_tr,group,n_tr] = make_pseudo_searchlight(preproc,trialinfo,ps_k,ps_n)
 
+% like make_pseudo but for sensor searchlight.
+
 if (isempty(ps_k)==1 && isempty(ps_n)==1) || (isempty(ps_k)==0 && isempty(ps_n)==0)
     error('enter number of trials to avg OR number of pseudotrials reqd.');
 end

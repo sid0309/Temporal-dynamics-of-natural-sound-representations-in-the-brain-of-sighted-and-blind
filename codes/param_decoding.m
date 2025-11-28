@@ -42,7 +42,7 @@ close all
 clc
 
 restoredefaultpath
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/codes'; %change
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/codes'; %change
 addpath(parent); %change
 
 %% Parameters

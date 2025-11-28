@@ -1,22 +1,22 @@
 % Representation Similarity Analysis in source space
-% Loads all parrticipant specific decoding AUC, converts them into DSMs,
-% correlates with other external models, perform sign permutation tessting
-% with cluster correction and outputs a .nii file.
 % Written by Siddharth Talwar
 % Last edited on 26-11-2025
-
+% Loads all parrticipant specific decoding AUC, converts them into DSMs,
+% correlates with other external models, perform sign permutation testing
+% with cluster correction and outputs a .nii file.
+% Uses SPM12 and bspmview to view the output.
 
 %% Load data and make DSMs
 clear
 close all
 clc
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
 
 cd(parent);
 deriv   = fullfile(parent,'derivatives');
 
-addpath '/media/siddharth/DATA/Toolbox/fieldtrip-20191024';
-addpath('/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/eegmvpa');
+addpath 'xxx/fieldtrip-20191024';
+addpath('xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind/codes');
 ft_defaults
 
 %folder info
@@ -168,11 +168,11 @@ cfg           = [];
 cfg.parameter = 'all';
 srcimg        = ft_sourceinterpolate(cfg,src,mri);
 
-addpath('/media/siddharth/DATA/Toolbox/spm12');
-addpath('/media/siddharth/DATA/Toolbox/bspmview-master');
+addpath('xxx/spm12');
+addpath('xxx/bspmview-master');
 
 cfg           = [];
-cfg.filename  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/derivatives/src/2025/tmpsc';
+cfg.filename  = 'xxx';
 cfg.filetype  = 'nifti';
 cfg.parameter = 'pow';
 ft_sourcewrite(cfg,srcimg);

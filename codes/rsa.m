@@ -9,7 +9,7 @@ clear
 clc
 close all
 
-parent = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
+parent = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
 
 eeg    = load(fullfile(parent,'others','dsm','eeg_dsm_libsvm.mat'));
 

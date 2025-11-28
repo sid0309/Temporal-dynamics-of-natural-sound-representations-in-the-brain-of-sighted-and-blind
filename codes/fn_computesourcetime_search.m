@@ -20,15 +20,15 @@ function fn_computesourcetime_search(param)
 %                         time. num_src x time, averaged iterations.
 % 3) param              : input parameters
 %
-% NOTES 
+% NOTES
 % - This function computes participant specific BEM sourcemodel and
 % leadfield matrix using Fieldtrip. A template is used for participants who
 % don't have their headmodels or mri. Fieldtrip uses OpenMNE for
-% computation, so make sure to download OpenMNE and launch MATLAB in 
+% computation, so make sure to download OpenMNE and launch MATLAB in
 % the same environment (python/conda).
 % - The spatial filter of LCMV is calculated across all trials and length.
 % param.timewindow extracts the timewindow of interest after the
-% computation of the spatial filter. Consequenty, data within 20 ms is 
+% computation of the spatial filter. Consequenty, data within 20 ms is
 % averaged.
 % - Calls another function fn_svm_decode_libsvm_src to decode the resuting
 % source timeseries.
@@ -39,13 +39,13 @@ function fn_computesourcetime_search(param)
 % Paths (change)
 
 % change
-addpath '/media/siddharth/DATA/Toolbox/fieldtrip-20191024' %fieldtrip change
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change
+addpath 'xxx/fieldtrip-20191024' %fieldtrip change
 ft_defaults
-addpath('/media/siddharth/DATA/Toolbox/libsvm-master/matlab') %libsvm change
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change
+addpath('xxx/libsvm-master/matlab') %libsvm change
 
 % don't change
-cd(parent);
+% cd(parent);
 preproc = fullfile(parent,'preprocess');
 deriv   = fullfile(parent,'derivatives');
 dir_preproc = dir(fullfile(preproc,param.popn));
@@ -101,7 +101,7 @@ for sub = param.sub
     % create the subject specific grid using the template grid
     if exist(fullfile(deriv,param.popn,['sub',sprintf('%03d',sub)],'fwdmodel')) == 7
         fwdmodel=load(fullfile(deriv,param.popn,['sub',sprintf('%03d',sub)],'fwdmodel','fwdmodel_meter.mat'));
-             
+        
         cfg              = [];
         cfg.warpmni      = 'yes';
         cfg.template     = template_grid;
@@ -131,7 +131,7 @@ for sub = param.sub
         mri = ft_read_mri('/media/siddharth/DATA/Toolbox/fieldtrip-20191024/external/spm8/templates/T1.nii');
         mri.coordsys = 'acpc'; % checked before
         
-       
+        
         cfg              = [];
         cfg.warpmni      = 'yes';
         cfg.template     = template_grid;
@@ -208,7 +208,7 @@ for sub = param.sub
         cfg.toilim       = param.timewindow;
         preprocdata = ft_redefinetrial(cfg,preprocdata);
     end
- 
+    
     % compute number of comparisons
     comparison = flip(combnk(1:param.n_category,2));
     
@@ -248,7 +248,7 @@ for sub = param.sub
     
     % Compute sourcetime series and decoding
     parfor roi = 1:length(sph)
-       
+        
         for aa = 1:length(sph)
             distance(aa) = pdist([sm(sph(roi,:));sm(sph(aa,:))]);
         end
@@ -302,21 +302,16 @@ for sub = param.sub
         [acc_mean(roi,:,:,:),auc_mean(roi,:,:,:)] = ...
             fn_svm_decode_libsvm_src(param,roi_timeseries,comparison); % roi x comp x time
         
-%         fprintf(repmat('\b',1,lineLength));
-%         lineLength = fprintf('%2.1f percent',...
-%             roi./length(sph)*100);
-       
+        %         fprintf(repmat('\b',1,lineLength));
+        %         lineLength = fprintf('%2.1f percent',...
+        %             roi./length(sph)*100);
+        
     end
     
     if indiv == 1
         save(fullfile(dest,...
-            ['auc_sourcetime_svd_indivfwdmodel_search_',...
-            num2str(param.timewindow(1)) ,'-',num2str(param.timewindow(2)),...
-            's.mat']),'acc_mean','auc_mean','param');
+            ['auc_sourcetime_svd_indivfwdmodel_search_','acc_libsvm_src_indivmodel.mat'),'acc_mean','auc_mean','param');
     elseif indiv == 0
-        save(fullfile(dest,...
-            ['auc_sourcetime_svd_tmplatefwdmodel_search_',...
-            num2str(param.timewindow(1)) ,'-',num2str(param.timewindow(2)),...
-            's.mat']),'acc_mean','auc_mean','param');
+        save(fullfile(dest,'acc_libsvm_src_tmplatemodel.mat'),'acc_mean','auc_mean','param');
     end
 end

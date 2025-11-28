@@ -37,10 +37,10 @@ function fn_svm_decode_tempgen(param)
 %% Paths (change)
 
 % change
-addpath '/media/siddharth/DATA/Toolbox/fieldtrip-20191024' %fieldtrip change
+addpath 'xxx/fieldtrip-20191024' %fieldtrip change
 ft_defaults
-addpath('/media/siddharth/DATA/Toolbox/libsvm-master/matlab') %libsvm change
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change
+addpath('xxx/libsvm-master/matlab') %libsvm change
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change
 
 % don't change
 cd(parent);

@@ -7,13 +7,13 @@
 
 clear
 clc
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change path
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change path
 
 deriv   = fullfile(parent,'derivatives');
-addpath '/media/siddharth/DATA/Toolbox/fieldtrip-20191024'
+addpath 'xxx/fieldtrip-20191024'
 ft_defaults
 
-%input
+%input folder info
 param.n_category   = 24;% category folder name
 param.iter         = 100;% num iterations
 param.factor       = 0; % smoothing factor

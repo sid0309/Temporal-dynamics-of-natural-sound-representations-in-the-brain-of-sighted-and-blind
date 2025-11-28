@@ -5,7 +5,7 @@
 % section. 
 % Sequence of process: import, filtering, epoching, baseline subtraction,
 % downsampling, semi-automatic artifact rejection, rereferencing
-% Run separatey for each population (popn).
+% Run separatey for each population (popn)/folder.
 
 %% Initialize
 
@@ -13,15 +13,15 @@ clear
 close all
 clc
 
-popn        = 'Control'; %change or blinds or others
+popn = 'Control'; %change or blinds or others
 
 % add fieldtrip to path
 restoredefaultpath % comment this line if you have saved other paths
-addpath '/mnt/DATA/siddharth/toolbox/fieldtrip-20191024' %change
+addpath 'xxx/fieldtrip-20191024' %change
 ft_defaults
 
 % add projectname/parent folder and subfolders to path
-parent      = '/mnt/DATA/siddharth/Aud_Cat'; %change
+parent      = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind'; %change
 cd(parent);
 raw         = fullfile(parent,'raw',popn,'eeg');
 preproc     = fullfile(parent,'preprocess');
@@ -34,7 +34,7 @@ dir_preproc = dir(preproc);
 names       = {dir_preproc([dir_preproc.isdir]).name};
 dir_preproc(ismember(names,{'.','..'}))=[];
 
-addpath '/mnt/DATA/siddharth/Aud_Cat/codes/eegmvpa'; %change
+addpath(fullfile(parent,'codes')); %change
 
 %% Preprocessing Loop
 

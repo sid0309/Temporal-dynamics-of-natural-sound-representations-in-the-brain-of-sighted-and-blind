@@ -64,7 +64,7 @@ save(fullfile(parent,'others','dsm','eeg_dsm_libsvm.mat'),'eegdsm','avg_eegdsm',
 %% Source level DSM
 
 c=[];
-ii=1;
+pop=1;
 for popn = {'Blind','Control'}
     
     popn = char(popn);
@@ -73,47 +73,47 @@ for popn = {'Blind','Control'}
     names       = {dir_deriv([dir_deriv.isdir]).name};
     dir_deriv(ismember(names,{'.','..'}))=[];
     
-    eegdsm{ii} = [];
-    avg_eegdsm{ii} = [];
+    eegdsm{pop} = [];
+    avg_eegdsm{pop} = [];
     
     % compute mean accuracies across all iterastions
     for sub = 1:length(dir_deriv)
-
-        if ismember(sub,[1 8:15]) && ii==1
+        
+        if ismember(sub,[1 8:15]) && pop==1
             load(fullfile(deriv,popn,['sub',sprintf('%03d',sub)],...
                 ['binarydecoding_svm_',num2str(param.n_category),'cat'],...
-                ['iter',num2str(param.iter)],'sourcetime',...
-                'auc_sourcetime_svd_tmplatefwdmodel_glasser_-0.1s.mat'),'auc_mean');
+                ['iter',num2str(param.iter),'_pt',num2str(param.pseudo_n)],...
+                'acc_libsvm_src_tmplatemodel.mat'),'auc_mean');
             
-        elseif ismember(sub,[2:7 16:18]) && ii==1
+        elseif ismember(sub,[2:7 16:18]) && pop==1
             
             load(fullfile(deriv,popn,['sub',sprintf('%03d',sub)],...
                 ['binarydecoding_svm_',num2str(param.n_category),'cat'],...
-                ['iter',num2str(param.iter)],'sourcetime',...
-                'auc_sourcetime_svd_indivfwdmodel_glasser_-0.1s.mat'),'auc_mean');
+                ['iter',num2str(param.iter),'_pt',num2str(param.pseudo_n)],...
+                'acc_libsvm_src_indivmodel.mat'),'auc_mean');
             
-        elseif ismember(sub,[1 5 7:10 12:14 16:18]) && ii==2
+        elseif ismember(sub,[1 5 7:10 12:14 16:18]) && pop==2
             load(fullfile(deriv,popn,['sub',sprintf('%03d',sub)],...
                 ['binarydecoding_svm_',num2str(param.n_category),'cat'],...
-                ['iter',num2str(param.iter)],'sourcetime',...
-                'auc_sourcetime_svd_tmplatefwdmodel_glasser_-0.1s.mat'),'auc_mean');
+                ['iter',num2str(param.iter),'_pt',num2str(param.pseudo_n)],...
+                'acc_libsvm_src_tmplatemodel.mat'),'auc_mean');
             
-        elseif ismember(sub,[2:4 6 11 15]) && ii==2
+        elseif ismember(sub,[2:4 6 11 15]) && pop==2
             load(fullfile(deriv,popn,['sub',sprintf('%03d',sub)],...
                 ['binarydecoding_svm_',num2str(param.n_category),'cat'],...
-                ['iter',num2str(param.iter)],'sourcetime',...
-                'auc_sourcetime_svd_indivfwdmodel_glasser_-0.1s.mat'),'auc_mean');
+                ['iter',num2str(param.iter),'_pt',num2str(param.pseudo_n)],...
+                'acc_libsvm_src_indivmodel.mat'),'auc_mean');
         end
         
         for roi = 1:size(auc_mean,1)
             
-            [srcdsm{ii}(roi,:,:,:,sub), avg_srcdsm{ii}(roi,:,:,:,sub), comparison] =...
+            [srcdsm{pop}(roi,:,:,:,sub), avg_srcdsm{pop}(roi,:,:,:,sub), comparison] =...
                 make_dsm(squeeze(auc_mean(roi,:,:)),param.n_category,param.factor);
             % eegdsm = ncat x ncat x timepoints x subjects x iterations
         end
                 
     end
-    ii=ii+1;
+    pop=pop+1;
 end
 
 time = -0.5 + (2.5/320):2.5/320:2;

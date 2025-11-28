@@ -1,15 +1,15 @@
 clear
 close all
 clc
-parent  = '/media/siddharth/DATA/CPP/Projects/Aud_Cat/codes/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
+parent  = 'xxx/Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind';
 
 cd(parent);
 deriv   = fullfile(parent,'derivatives');
 
-addpath '/media/siddharth/DATA/Toolbox/fieldtrip-20191024';
+addpath 'xxx/fieldtrip-20191024';
 ft_defaults
 
-addpath(genpath('/media/siddharth/DATA/Toolbox/fieldtrip-20191024/template'));
+addpath(genpath('xxx/fieldtrip-20191024/template'));
 
 param = [];
 param.factor       = 0;
@@ -77,15 +77,15 @@ thr = 0.05;
 
 %% Prepare img for bidspmview
 
-addpath('/media/siddharth/DATA/Toolbox/fieldtrip-20191024/external/spm12/templates')
+addpath('xxx/fieldtrip-20191024/external/spm12/templates')
 
 mri = ft_read_mri('T1.nii');
 cfg=[];
 cfg.parameter = 'all';
 srcintimg = ft_sourceinterpolate(cfg,src,mri);
 
-addpath('/media/siddharth/DATA/Toolbox/spm12');
-addpath('/media/siddharth/DATA/Toolbox/bspmview-master');
+addpath('xxx/spm12');
+addpath('xxx/bspmview-master');
 
 cfg=[];
 cfg.filename  = 'tmp';
