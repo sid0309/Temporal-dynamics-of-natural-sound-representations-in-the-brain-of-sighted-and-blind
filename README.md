@@ -1,4 +1,4 @@
-# Temporal-dynamics-of-natural-sound-representations-in-the-brain-of-sighted-and-blind
+# Temporal dynamics of natural sound representations in the brain of sighted and blind
 
 PLEASE READ BEFORE RUNNING SCRIPTS
 
