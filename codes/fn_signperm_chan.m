@@ -1,14 +1,22 @@
 function [pval,nulldist,sigind] = fn_signperm_chan(vec1,vec2,sample,permnum,thr,lay)
 
-% vec should be channels x subjects.
-% permnum = number of permutations.
-% thr = cluster threshold
-% lay = layout
-% Usage for 1 sample test 1000 permutations -
-% [pval,fdr] = signperm(vec1, 1000,0.05,lay);
+% 2D Sign permutation test for only sensor searchlight
+% Written by Siddharth Talwar
+% Last edited on 26-11-2025
+% The script performs sign permutation testing and clusterwise correction.
+% Not compatible for other 2D tests. See fn_signperm2D.
+% Inputs
+% 1) vec1, vec2 = data should be channels x subjects. Time should be
+%                 averaged before.
+% 2) sample     = which tails? 1 or 2
+% 3) permnum    = number of permutations
+% 4) thr        = threshold (0.05)
+% 5) lay        = layout (see fieldtrip doc)
 %
-% assumes all values can already be flipped around 0. Subtract binary
-% decoding by 0.5 before using the function.
+% Output
+% 1) pval     = uncorrected pvalues at all timepoints
+% 2) nulldist = null distribution
+% 3) sigind   = significant timepoints after clusterwise correction
 
 %%
 

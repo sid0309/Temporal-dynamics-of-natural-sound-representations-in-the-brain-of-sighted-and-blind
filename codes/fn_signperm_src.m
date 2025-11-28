@@ -1,20 +1,36 @@
-function [src,pval] = fn_signperm_src(vec1,vec2,permnum,thr)
-%%
+function [src,pval] = fn_signperm_src(mat1,mat2,permnum,thr)
+
+% 3D Sign permutation test for only source searchlight
+% Written by Siddharth Talwar
+% Last edited on 26-11-2025
+% The script performs sign permutation testing and clusterwise correction.
+% Inputs
+% 1) mat1, mat2 = data should be source x subjects. Time should be
+%                 averaged before.
+% 2) permnum    = number of permutations
+% 3) thr        = threshold (0.05)
+%
+% Output
+% 1) src  = fieldtrip format src data structure that can be
+%           plotted further. See fields pow and mask.
+% 2) pval = uncorrected at every sourcepoint
+%
+
 src = [];
 src.pow = 0;
-if isempty(vec2) == 1
-    meanvec  = squeeze(mean(vec1,2)); % mean
+if isempty(mat2) == 1
+    meanvec  = squeeze(mean(mat1,2)); % mean
     nulldist = zeros(permnum,1);% null dist
     nd2pmaps = zeros(length(meanvec),size(nulldist,1)); %nulldist to pmaps
     
     tic
     for srcpt = 1:size(meanvec,1)
-        num = randi([1,size(vec1,2)],1,permnum); % choose a number
+        num = randi([1,size(mat1,2)],1,permnum); % choose a number
         
         for perm = 1:permnum
             
-            r       = randperm(size(vec1,2),num(perm)); % choose indices
-            tmp     = vec1(srcpt,:); % vector of all observed values
+            r       = randperm(size(mat1,2),num(perm)); % choose indices
+            tmp     = mat1(srcpt,:); % vector of all observed values
             tmp(r)  = tmp(r)*-1; %flip sign the chosen indices
             nulldist(perm) = mean(tmp); % mean the result
             
@@ -36,22 +52,22 @@ if isempty(vec2) == 1
     end
     
 else
-    meanvec  = squeeze(mean(vec1,2)) - squeeze(mean(vec2,2)); % mean
+    meanvec  = squeeze(mean(mat1,2)) - squeeze(mean(mat2,2)); % mean
     nulldist = zeros(permnum,1);% null dist
     nd2pmaps = zeros(length(meanvec),size(nulldist,1)); %nulldist to pmaps
     
     tic
     for srcpt = 1:size(meanvec,1)
-        num = randi([1,size(vec1,2)],1,permnum); % choose a number
+        num = randi([1,size(mat1,2)],1,permnum); % choose a number
         
         for perm = 1:permnum
             
-            r1       = randperm(size(vec1,2),num(perm)); % choose indices
-            tmp1      = vec1(srcpt,:); % vector of all observed values
+            r1       = randperm(size(mat1,2),num(perm)); % choose indices
+            tmp1      = mat1(srcpt,:); % vector of all observed values
             tmp1(r1)  = tmp1(r1)*-1; %flip sign the chosen indices
             
-            r2       = randperm(size(vec2,2),num(perm)); % choose indices
-            tmp2      = vec2(srcpt,:); % vector of all observed values
+            r2       = randperm(size(mat2,2),num(perm)); % choose indices
+            tmp2      = mat2(srcpt,:); % vector of all observed values
             tmp2(r2)  = tmp2(r2)*-1; %flip sign the chosen indices
             
             nulldist(perm) = mean(tmp1) - mean(tmp2); % mean the result
